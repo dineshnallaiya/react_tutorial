@@ -48,7 +48,6 @@ const DynamicForm = () => {
       ],
     },
   ];
-  const [formValue, setFromValue] = useState({});
   const { getValue, error } = useDynamicForm();
 
   const triggereChanges = (event: any) => {
@@ -62,78 +61,80 @@ const DynamicForm = () => {
     console.log("error", error);
   }, [error]);
   return (
-    <>
+    <div>
       <h3 className="text-[24px]">Dynamic Form Validation</h3>
       <div>
         {fields.map((field, i) => {
           return (
-            <>
-              <div key={i}>
-                {field.type === "text" && (
-                  <>
+            <div key={i}>
+              {field.type === "text" && (
+                <>
+                  <label htmlFor="">{field.label}</label>
+                  <input
+                    type={field.type}
+                    name={field.name}
+                    onChange={triggereChanges}
+                  />
+                </>
+              )}
+              {field.type === "radio" && (
+                <>
+                  <label htmlFor="">{field.label}</label>
+                  {field?.options!.map((opt, i) => {
+                    return (
+                      <div key={i * 5}>
+                        <label htmlFor={opt.key}>{opt.label}</label>
+                        <input
+                          type={field.type}
+                          id={opt.key}
+                          name={field.name}
+                          value={opt.key}
+                        />
+                      </div>
+                    );
+                  })}
+                </>
+              )}
+              {field.type === "checkbox" && (
+                <>
+                  <label htmlFor="">{field.label}</label>
+                  {field?.options!.map((opt, i) => {
+                    return (
+                      <div key={i * 15}>
+                        <label htmlFor={opt.key}>{opt.label}</label>
+                        <input
+                          type={field.type}
+                          id={opt.key}
+                          name={field.name}
+                          value={opt.key}
+                        />
+                      </div>
+                    );
+                  })}
+                </>
+              )}
+              {field.type === "select" && (
+                <>
+                  <b>
                     <label htmlFor="">{field.label}</label>
-                    <input
-                      type={field.type}
-                      name={field.name}
-                      onChange={triggereChanges}
-                    />
-                  </>
-                )}
-                {field.type === "radio" && (
-                  <>
-                    <label htmlFor="">{field.label}</label>
-                    {field?.options!.map((opt) => {
+                  </b>
+                  <select>
+                    {field.options!.map((item, i) => {
                       return (
-                        <>
-                          <label htmlFor={opt.key}>{opt.label}</label>
-                          <input
-                            type={field.type}
-                            id={opt.key}
-                            name={field.name}
-                            value={opt.key}
-                          />
-                        </>
+                        <option value={item.key} key={i * 9}>
+                          {item.label}
+                        </option>
                       );
                     })}
-                  </>
-                )}
-                {field.type === "checkbox" && (
-                  <>
-                    <label htmlFor="">{field.label}</label>
-                    {field?.options!.map((opt) => {
-                      return (
-                        <>
-                          <label htmlFor={opt.key}>{opt.label}</label>
-                          <input
-                            type={field.type}
-                            id={opt.key}
-                            name={field.name}
-                            value={opt.key}
-                          />
-                        </>
-                      );
-                    })}
-                  </>
-                )}
-                {field.type === "select" && (
-                  <>
-                    <b>
-                      <label htmlFor="">{field.label}</label>
-                    </b>
-                    <select>
-                      {field.options!.map((item) => {
-                        return <option value={item.key}>{item.label}</option>;
-                      })}
-                    </select>
-                  </>
-                )}
-              </div>
-            </>
+                  </select>
+                </>
+              )}
+            </div>
           );
         })}
       </div>
       <button type="submit"> submit </button>
-    </>
+    </div>
   );
 };
 export default DynamicForm;
