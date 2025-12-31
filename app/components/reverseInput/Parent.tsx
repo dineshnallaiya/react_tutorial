@@ -10,7 +10,7 @@ import ChildText from "./Child";
 const ParentText = () => {
   const [inputData, setInput] = useState("");
   const changeText = useCallback((event: any) => {
-    setInput(event.target.value.replace(/[^A-Za-z]+$/, ""));
+    setInput(event.target.value.replace(/[^0-9]+$/, ""));
   }, []);
   const reverseString = useMemo(() => {
     return inputData.split("").reverse().join("");
@@ -24,7 +24,7 @@ const ParentText = () => {
   }, []);
   return (
     <>
-      <h3 className="text-[24px]">AutoInput</h3>
+      <h3 className="text-[24px]">ReverseInput</h3>
       <input
         type="text"
         value={inputData}

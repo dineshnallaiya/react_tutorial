@@ -1,10 +1,20 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useContext, useMemo, useState } from "react";
+import { globalThemeContext } from "../context/theme.comtext";
 const AutoComplete = () => {
+  const themeContext = useContext(globalThemeContext);
+  if (!themeContext) {
+    throw new Error("theme nor provide");
+  }
+  const { themeValue, setThemeValue } = themeContext;
+  console.log(themeValue);
   const data = ["dinses", "kanna", "lol", "praveen"];
   const [dataInput, setDataInput] = useState("");
 
   const autoCompeteEvent = useCallback((event: any) => {
     setDataInput(event.target.value);
+    if (event.target.value == 1) {
+      setThemeValue("dark");
+    }
   }, []);
 
   const filterRecord = useMemo(() => {
@@ -15,7 +25,11 @@ const AutoComplete = () => {
     setDataInput(event.target.inner.HTML);
   }, []);
   return (
-    <div>
+    <div
+      style={
+        themeValue == "dark" ? { background: "black" } : { background: "white" }
+      }
+    >
       <h3 className="text-[24px]">AutoInput</h3>
       <input
         type="text"
