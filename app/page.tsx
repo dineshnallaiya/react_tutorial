@@ -6,6 +6,7 @@ import DatePickerDisplay from "./components/datePicker/DatePickerDisplay";
 import DynamicForm from "./components/DynamicForm";
 import CustomForm from "./components/Form";
 import ParentText from "./components/reverseInput/Parent";
+import ToDo from "./components/todoApp/ToDo";
 
 export default function Home() {
   return (
@@ -22,6 +23,8 @@ export default function Home() {
         <DatePickerDisplay />
         <div className="w-100 border border-solid mt-3"></div>
         <DarkLight />
+        <div className="w-100 border border-solid mt-3"></div>
+        <ToDo />
         <div className="w-100 border border-solid mt-3"></div>
       </section>
     </ThemeContextProvide>
